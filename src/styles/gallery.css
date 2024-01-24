@@ -1,0 +1,94 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200&display=swap');
+.gallery-section{
+    padding: 6rem 0;
+}
+.gallery-section .section-title{
+    text-align: center;
+    padding-bottom: 2rem;
+    font-family: 'Poppins', sans-serif;
+}
+.section-title .subtitle{
+    color: #555;
+    text-transform: capitalize;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+.section-title h1{
+    font-size: 40px;
+    font-weight: 700;    
+    line-height: 0;
+    margin-bottom: 2rem;
+    color: #222;
+    text-transform: capitalize;
+}
+.gallery-section .page-row{
+    display: flex;
+    height: 600px;
+    width: 100%;
+    flex-direction: row;
+    margin-bottom: 2rem;
+}
+.gallery_row{
+    width: 33%;
+}
+.gallery_row  img{
+    padding: 1rem;
+    opacity: .9;
+}
+.gallery_row_one  img:first-child, .gallery_row_three img:first-child{
+    width: 100%;
+    height: 40%;
+}
+.gallery_row_two img:first-child{
+    width: 100%;
+    height: 60%;
+}
+.gallery_row_two img:last-child{
+    width: 100%;
+    height: 40%;
+}
+.gallery_row_one  img:last-child, .gallery_row_three  img:last-child{
+    width: 100%;
+    height: 60%;
+}
+#gallery_btn{
+    background-color: rgb(30, 58, 138);
+    color: #fff;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    padding:1rem 0;
+    font-size: 15px;
+    text-transform: capitalize;
+    font-family: 'Poppins', sans-serif;
+    margin: 0 auto;
+}
+.pagination{
+    text-transform: capitalize;
+    font-family: 'Poppins', sans-serif;
+    width: 60%;
+    margin:  0 auto;
+    text-align: center;
+}
+.pagination button{
+    font-size: 14px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    background-color:  rgb(30, 58, 138);
+    text-transform: capitalize;
+    color: #fff;
+    font-weight: 400;
+}
+.pagination .active{
+    background-color: rgb(30, 58, 138);
+    color: white;
+}
+.pagination span{
+    font-size: 14px;
+    padding: 8px 13px;
+    cursor: pointer;
+    color: rgb(70, 70, 121);
+    font-weight: 600;
+}

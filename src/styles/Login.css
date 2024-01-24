@@ -1,0 +1,116 @@
+
+.login-container{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+}
+.login-container .page-row{display: flex;}
+.login-left-column{
+    width: 50%;
+    height: 100vh;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+.login-left-column::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: blue;
+   z-index: 10;
+}
+.login_logo{
+    margin:80px 0 130px 0;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+}
+.login_logo p{
+    margin-left: 10px;
+    font-weight: 700;
+}
+.login_logo span{font-weight: 300;}
+.login-title-box{
+    width: 65%;
+    position: absolute;
+    z-index: 2;
+    color: #fff;
+}
+.login-title-box h1{
+     font-family: 'Poppins', sans-serif;
+     font-size: 42px;
+     font-weight: 700;
+     line-height: 55px;
+     margin-bottom: 1rem;
+}
+.login-title-box .login_subtitle{font-size: 17px;}
+.login-right-column{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+}
+.login-form-box{
+    width: 65%;
+    font-family: 'Poppins', sans-serif;
+}
+.login-form-box h2{
+    font-size: 35px;
+}
+.login-form-box #register_text{
+    font-size: 13px;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    color: #444;
+}
+#register_text span{color: blue; text-decoration: underline; cursor: pointer;}
+.login-form-box h6{
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+.login-form-box h6 i{
+    font-size: 16px;
+    margin-right: 10px;
+    color: blue;
+}
+.login-form-box input{
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.login-form-box input::placeholder{
+    font-size: 12px;
+    color: #bbb;
+    text-transform: capitalize;
+}
+.login-form-box form button{
+    background-color: blue;
+    color: #fff;
+    margin-top: 2rem;
+    padding: 13px 2rem;
+    border-radius: 20px;
+}
+.login-form-box form button:hover{
+    background-color: #fff;
+    border: 1px solid blue;
+    color: blue;
+}
