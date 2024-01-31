@@ -30,17 +30,18 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(),userDetails);
+        return createToken(new HashMap<>(),userDetails);
     }
 
-    public String generateToken(Map<String, Objects> extractClaims, UserDetails userDetails){
+    public String createToken(Map<String, Objects> extractClaims, UserDetails userDetails){
 
         return Jwts
                 .builder()
                 .setClaims(extractClaims)
                 .setSubject(userDetails.getUsername())
+                .claim("role",userDetails.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
+                .setExpiration(new Date(System.currentTimeMillis()+1000*60*60))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

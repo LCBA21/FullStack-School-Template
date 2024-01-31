@@ -33,6 +33,16 @@ public class UsersService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MailService mailService;
+
+
+    @Autowired
+    private  PasswordGenerator passwordGenerator;
+
+
+
+
 
     public void assignRoleTable() {
         Optional<Role> roles = roleRepository.findByAuthority("ROLE_USER");
@@ -53,14 +63,24 @@ public class UsersService {
                              MultipartFile photo) throws Exception{
         Role userRole = null;
 
+        User user= new User();
 
-            if(userName.equals("admin") &&password.equals("password")){
+
+                String generatePassword = passwordGenerator.generatePassword(8);
+//                mailService.sendPassword(userName, password);
+
+
+
+            if(userName.equals("admin@gmail.com") &&password.equals("password")){
                 userRole =  roleRepository.findByAuthority("ROLE_ADMIN").get();
             }else {userRole =  roleRepository.findByAuthority("ROLE_USER").get(); }
 
             HashSet<Role> newRole = new HashSet<>();
             newRole.add(userRole);
             return   userRepository.save(new User(userName,firstName,lastName,passwordEncoder.encode(password),photo.getBytes(),newRole));
+
+
+
     }
 
 
@@ -76,15 +96,29 @@ public class UsersService {
         return userRepository.findByUserName(userName).get();
     }
 
-    public void deleteUser(String userName){
-        userRepository.deleteById(userName);
+    public String deleteUser(String userName){
+
+        User user=userRepository.findByUserName(userName).get();
+
+        if(user !=null){
+            user.getRole().clear();
+            userRepository.save(user);
+
+            userRepository.delete(user);
+            return "user deleted";
+        }else {
+            return "error";
+        }
+
     }
 
     public User update( String username,User user) {
         User foundUser = userRepository.findByUserName(username).get();
 
+
         foundUser.setFirstName(user.getFirstName());
         foundUser.setLastName(user.getLastName());
+        foundUser.setPhoto(user.getPhoto());
         userRepository.save(foundUser);
 
         return user;

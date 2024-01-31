@@ -30,7 +30,6 @@ public class AuthenticationService {
         ));
         if(authenticate.isAuthenticated()){
             User user = userRepository.findByUserName(request.getUserName()).orElseThrow();
-            System.out.println(jwtService.generateToken(user));
             return jwtService.generateToken(user);
         }else {
             throw new UsernameNotFoundException("invalid user");

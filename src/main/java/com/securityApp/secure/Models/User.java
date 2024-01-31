@@ -19,6 +19,8 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private String password;
+
+
     @Lob
     @Column(name = "photo",columnDefinition = "MEDIUMBLOB")
     private byte[] photo;
@@ -79,6 +81,10 @@ public class User implements UserDetails {
 //        return role;
 //    }
 
+
+    public Set<Role> getRole() {
+        return role;
+    }
 
     public byte[] getPhoto() {
         return photo;

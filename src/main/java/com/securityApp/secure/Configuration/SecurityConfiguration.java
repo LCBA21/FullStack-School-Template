@@ -17,7 +17,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Collections;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -26,40 +25,35 @@ public class SecurityConfiguration {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private AuthenticationProvider authenticationProvider;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-   return http
-                .csrf()
-                .disable()
-               .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
-                   @Override
-                   public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                       CorsConfiguration config = new CorsConfiguration();
-                       config.setAllowedOrigins(Collections.singletonList("*"));
-                       config.setAllowedMethods(Collections.singletonList("*"));
-                       config.setAllowedHeaders(Collections.singletonList("*"));
-                       config.setMaxAge(3600L);
-                       return  config;
-                   }
-               }) )
-                .authorizeHttpRequests(auth->
+        return http
+                .csrf(csrf -> csrf.disable())
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                        CorsConfiguration config = new CorsConfiguration();
+                        config.setAllowedOrigins(Collections.singletonList("*"));
+                        config.setAllowedMethods(Collections.singletonList("*"));
+                        config.setAllowedHeaders(Collections.singletonList("*"));
+                        config.setMaxAge(3600L);
+                        return config;
+                    }
+                }))
+                .authorizeHttpRequests(auth ->
                         auth
-                                .anyRequest().permitAll()
-//                                .requestMatchers("/authenicate","/user/registration","/user/pagination/{offset}/{pageSize}","/user/updateUser/{username}","/user/findByUsername/{userName}").permitAll()
-//                                .requestMatchers("/user/registration","/authenticate","/allUsers","/user/deleteUser/{userName}").permitAll()
-//                                .requestMatchers("/forUser").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
-//                                  .requestMatchers("/forAdmin").hasAnyAuthority("ROLE_ADMIN")
-
-//                                .anyRequest().authenticated()
-
-
-                ).sessionManagement(session->
-                   session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-               .authenticationProvider(authenticationProvider)
-               .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-               .formLogin(Customizer.withDefaults())
-               .httpBasic(Customizer.withDefaults())
-               .build();
-
+                                .requestMatchers("/authenticate", "/user/allUsers", "/user/registration", "/user/pagination/{offset}/{pageSize}").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("USER")
+                                .anyRequest().authenticated()
+                )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults())
+                .build();
     }
 }

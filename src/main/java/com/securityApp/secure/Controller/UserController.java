@@ -1,14 +1,19 @@
 package com.securityApp.secure.Controller;
 
+import com.securityApp.secure.Models.Role;
 import com.securityApp.secure.Models.User;
 import com.securityApp.secure.Service.UsersService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -40,10 +45,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/allUsers")
-    private List<User> findAllUsers(){
-        return usersService.getAllUsers();
-    }
+
 
     @GetMapping("/pagination/{offset}/{pageSize}")
     public Page<User> findCandidateByPagination(@PathVariable Integer offset, @PathVariable Integer pageSize){
@@ -55,26 +57,22 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/deleteUser/{userName}")
-    public void deleteUser(@PathVariable String userName){
-        usersService.deleteUser(userName);
-    }
-
     @PutMapping("/updateUser/{username}")
     public User updateUser(@PathVariable String username,@RequestBody User user) {
         return usersService.update(username,user);
+
     }
 
 
-    @PostMapping("/forAdmin")
-    private String forAdmin(){
-        return "welcome Admin";
-    }
-
-    @PostMapping("/forUser")
-    private String forUser(){
-        return "welcome user";
-    }
+//    @PostMapping("/forAdmin")
+//    private String forAdmin(){
+//        return "welcome Admin";
+//    }
+//
+//    @PostMapping("/forUser")
+//    private String forUser(){
+//        return "welcome user";
+//    }
 
 
 
